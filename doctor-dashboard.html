@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Dashboard - DocOnClick</title>
+    <link rel="stylesheet" href="css/doctor-dashboard.css" />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="top-header">
+        <div class="container">
+          <div class="contact-info">
+            <a href="mailto:info@doconclick.com"
+              ><i class="fas fa-envelope"></i> info@DocOnClick.com</a
+            >
+            <a href="tel:+1234567890"
+              ><i class="fas fa-phone-alt"></i> +123 456 7890</a
+            >
+          </div>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="main-header">
+        <div class="container">
+          <a href="home.html" class="logo">
+            <div class="logo-icon">D</div>
+            <div class="logo-text">DocOnClick</div>
+          </a>
+          <nav class="main-nav">
+            <ul>
+              <li>
+                <a href="doctor-schedule-management.html"
+                  >Schedule Management</a
+                >
+              </li>
+              <li>
+                <a href="doctor-appointments-management.html"
+                  >Appointments Management</a
+                >
+              </li>
+              <li><a href="doctor-setting.html">Settings</a></li>
+            </ul>
+          </nav>
+          <div class="user-info">
+            <img
+              id="doctor-avatar"
+              src="img/default-avatar.png"
+              alt="Doctor"
+              class="user-avatar"
+            />
+            <div class="user-details">
+              <h4 id="doctor-name">Dr. John Doe</h4>
+              <p id="doctor-specialization">Cardiologist</p>
+            </div>
+            <button id="logout-btn" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="dashboard-header">
+        <div class="header-left">
+          <h1>Doctor Dashboard</h1>
+          <p id="welcome-message">Welcome back, Dr. John Doe</p>
+        </div>
+      </div>
+
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-icon appointments">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Today's Appointments</h3>
+            <h2 id="today-appointments">0</h2>
+            <p>Next: <span id="next-appointment">No appointments</span></p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon ratings">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Rating</h3>
+            <h2 id="average-rating">0.0</h2>
+            <p>Based on <span id="review-count">0</span> reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <section class="dashboard-section appointments-section">
+          <div class="section-header">
+            <h2>Today's Appointments</h2>
+            <a href="doctor-appointments-management.html" class="view-all"
+              >View All</a
+            >
+          </div>
+          <div class="section-body">
+            <table class="data-table" id="appointments-table">
+              <thead>
+                <tr>
+                  <th>Patient</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="loading-row">
+                  <td colspan="3">Loading appointments...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="dashboard-section calendar-section">
+          <div class="section-header">
+            <h2>Calendar</h2>
+            <div class="calendar-nav">
+              <button id="prev-month">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <span id="current-month">May 2025</span>
+              <button id="next-month">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="calendar" id="doctor-calendar">
+              <!-- Calendar will be generated by JS -->
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section patients-section">
+          <div class="section-header">
+            <h2>Recent Patients</h2>
+            <a href="doctor-appointments-management.html" class="view-all"
+              >View All</a
+            >
+          </div>
+          <div class="section-body">
+            <table class="data-table" id="patients-table">
+              <thead>
+                <tr>
+                  <th>Patient</th>
+                  <th>Last Visit</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="loading-row">
+                  <td colspan="3">Loading patients...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="dashboard-section activity-section">
+          <div class="section-header">
+            <h2>Recent Activity</h2>
+          </div>
+          <div class="section-body">
+            <ul class="activity-list" id="activity-list">
+              <li class="loading-item">Loading activity...</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <div class="footer-logo">
+              <div class="logo-icon">D</div>
+              <div class="logo-text">DocOnClick</div>
+            </div>
+            <p>
+              Your trusted healthcare partner. Book appointments with top
+              doctors, manage your medical records, and get the care you
+              deserve.
+            </p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="doctors.html">Doctors</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 123 Healthcare St, Medical
+              City, 12345
+            </p>
+            <p><i class="fas fa-phone-alt"></i> +123 456 7890</p>
+            <p><i class="fas fa-envelope"></i> info@doconclick.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 DocOnClick. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Appointment Modal -->
+    <div id="appointment-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Appointment Details</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body" id="appointment-details">
+          <!-- Appointment details will be loaded here -->
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline close-modal">Close</button>
+          <button class="btn btn-primary" id="complete-appointment">
+            Complete & Add Prescription
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prescription Modal -->
+    <div id="prescription-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Create Prescription</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="prescription-form">
+            <input type="hidden" id="appointment-id" name="appointmentId" />
+
+            <div class="form-group">
+              <label for="diagnosis">Diagnosis</label>
+              <textarea id="diagnosis" name="diagnosis" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notes & Recommendations</label>
+              <textarea id="notes" name="notes"></textarea>
+            </div>
+
+            <div class="medicines-section">
+              <h3>Medications</h3>
+              <div id="medicines-container">
+                <!-- Medicine items will be added here -->
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline btn-sm"
+                id="add-medicine"
+              >
+                <i class="fas fa-plus"></i> Add Medication
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline close-modal">Cancel</button>
+          <button class="btn btn-primary" id="save-prescription">
+            Save Prescription
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/doctor-dashboard.js"></script>
+  </body>
+</html>

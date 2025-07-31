@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Management - DocOnClick Admin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-user-shield"></i> Admin Panel</h2>
+                <div class="admin-info">
+                    <span id="adminName">Admin User</span>
+                    <span id="adminRole" class="role-badge">SUPER_ADMIN</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="admin-doctor-management.html"><i class="fas fa-user-md"></i> Doctor Management</a></li>
+                <li><a href="admin-user-management.html"><i class="fas fa-users"></i> User Management</a></li>
+                <li><a href="admin-patient-management.html" class="active"><i class="fas fa-user-injured"></i> Patient Management</a></li>
+                <li><a href="admin-appointments-management.html"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                <li><a href="admin-admin-management.html"><i class="fas fa-user-shield"></i> Admin Management</a></li>
+                <li><a href="admin-payments-management.html"><i class="fas fa-credit-card"></i> Payments</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Patient Management</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="openCreatePatientModal()">
+                        <i class="fas fa-plus"></i> Create Patient
+                    </button>
+                    <button class="btn btn-secondary" onclick="refreshPatients()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </header>
+
+            <!-- Search and Filter Section -->
+            <div class="search-filter-section">
+                <div class="search-group">
+                    <div class="search-field">
+                        <label>Search by Name:</label>
+                        <input type="text" id="searchByName" placeholder="Enter patient name..." onkeyup="searchPatients()">
+                    </div>
+                    
+                    <div class="search-field">
+                        <label>Search by Patient ID:</label>
+                        <input type="text" id="searchByPatientId" placeholder="Enter patient ID..." onkeyup="searchPatients()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patients Table -->
+            <div class="content-section">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Gender</th>
+                                <th>Age</th>
+                                <th>Appointments</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientsTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <!-- Dynamic pagination -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Patient Details Modal -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Patient Details</h2>
+                <span class="close" onclick="closePatientModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="patientModalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Create/Edit Patient Modal -->
+    <div id="createPatientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="patientFormTitle">Create Patient</h2>
+                <span class="close" onclick="closeCreatePatientModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="patientForm">
+                    <input type="hidden" id="patientId">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="emailAddress" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone *</label>
+                            <input type="tel" id="phone" pattern="[0-9]{10}" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Gender *</label>
+                            <select id="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date of Birth *</label>
+                            <input type="date" id="dateOfBirth" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select id="role">
+                                <option value="PATIENT">Patient</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Address *</label>
+                        <textarea id="address" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeCreatePatientModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Patient</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/admin-patient-management.js"></script>
+</body>
+</html>

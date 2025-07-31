@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="mailto:info@doconclick.com"><i class="fas fa-envelope"></i> info@DocOnClick.com</a>
+                    <a href="tel:+1234567890"><i class="fas fa-phone-alt"></i> +123 456 7890</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">D</div>
+                    <div class="logo-text">DocOnClick</div>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="home.html#about">About</a></li>
+                        <li><a href="home.html#services">Services</a></li>
+                        <li><a href="home.html#doctors">Doctors</a></li>
+                        <li><a href="home.html#patient">News</a></li>
+                        <li><a href="home.html#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-buttons">
+                    <a href="signup.html" class="btn btn-outline">Sign Up</a>
+                    <a href="book-appointment.html" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1 class="auth-title">Welcome Back</h1>
+            <p class="auth-subtitle">Login to access your account</p>
+
+            <div class="account-type-selector">
+                <button type="button" class="account-type active" data-type="USER">Patient</button>
+                <button type="button" class="account-type" data-type="DOCTOR">Doctor</button>
+            </div>
+
+            <div id="status-message" class="status-message"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group remember-forgot">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </div>
+
+                <div class="auth-links">
+                    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">D</div>
+                        <div class="logo-text">DocOnClick</div>
+                    </div>
+                    <p>Your trusted healthcare partner. Book appointments with top doctors, manage your medical records, and get the care you deserve.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Doctors</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Healthcare St, Medical City, 12345</p>
+                    <p><i class="fas fa-phone-alt"></i> +123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@doconclick.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 DocOnClick. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

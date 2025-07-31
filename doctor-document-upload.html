@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Verification - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+        <link rel="stylesheet" href="css/doctor-document-upload.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="mailto:info@doconclick.com"><i class="fas fa-envelope"></i> info@DocOnClick.com</a>
+                    <a href="tel:+1234567890"><i class="fas fa-phone-alt"></i> +123 456 7890</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">D</div>
+                    <div class="logo-text">DocOnClick</div>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Doctors</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-buttons">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="book-appointment.html" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Document Upload Form -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1 class="auth-title">Document Verification</h1>
+            <p class="auth-subtitle">Please upload the required documents to complete your registration</p>
+
+            <!-- Doctor Info Section -->
+            <div class="doctor-info-section" id="doctor-info-section" style="display: none;">
+                <div class="doctor-info-card">
+                    <h4><i class="fas fa-user-md"></i> Doctor Information</h4>
+                    <div id="doctor-info-content">
+                        <!-- Doctor info will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="status-message" class="status-message"></div>
+
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <h3>Upload Progress</h3>
+                    <span class="progress-count"><span id="uploaded-count">0</span> of 5 documents uploaded</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="document-upload-form" enctype="multipart/form-data">
+                <input type="hidden" id="doctorId" name="doctorId">
+
+                <!-- Government ID Proof -->
+                <div class="form-group document-upload-group">
+                    <label class="document-label">
+                        <i class="fas fa-id-card"></i>
+                        Government ID Proof
+                        <span class="required-badge">Required</span>
+                    </label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="governmentIdProof" name="governmentIdProof" accept=".pdf" required>
+                        <div class="file-upload-area" data-field="governmentIdProof">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <span class="upload-main">Choose PDF file or drag and drop</span>
+                                <span class="upload-sub">Maximum file size: 5MB</span>
+                            </div>
+                        </div>
+                        <div class="file-info" id="governmentIdProof-info"></div>
+                        <div class="upload-status" id="governmentIdProof-status"></div>
+                    </div>
+                    <p class="document-description">Upload a clear copy of your government-issued ID (Passport, Driver's License, Aadhaar Card, etc.)</p>
+                </div>
+
+                <!-- Medical Registration Certificate -->
+                <div class="form-group document-upload-group">
+                    <label class="document-label">
+                        <i class="fas fa-certificate"></i>
+                        Medical Registration Certificate
+                        <span class="required-badge">Required</span>
+                    </label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="medicalRegistrationCertificate" name="medicalRegistrationCertificate" accept=".pdf" required>
+                        <div class="file-upload-area" data-field="medicalRegistrationCertificate">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <span class="upload-main">Choose PDF file or drag and drop</span>
+                                <span class="upload-sub">Maximum file size: 5MB</span>
+                            </div>
+                        </div>
+                        <div class="file-info" id="medicalRegistrationCertificate-info"></div>
+                        <div class="upload-status" id="medicalRegistrationCertificate-status"></div>
+                    </div>
+                    <p class="document-description">Upload your medical council registration certificate</p>
+                </div>
+
+                <!-- Educational Certificate -->
+                <div class="form-group document-upload-group">
+                    <label class="document-label">
+                        <i class="fas fa-graduation-cap"></i>
+                        Educational Certificate
+                        <span class="required-badge">Required</span>
+                    </label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="educationalCertificate" name="educationalCertificate" accept=".pdf" required>
+                        <div class="file-upload-area" data-field="educationalCertificate">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <span class="upload-main">Choose PDF file or drag and drop</span>
+                                <span class="upload-sub">Maximum file size: 5MB</span>
+                            </div>
+                        </div>
+                        <div class="file-info" id="educationalCertificate-info"></div>
+                        <div class="upload-status" id="educationalCertificate-status"></div>
+                    </div>
+                    <p class="document-description">Upload your medical degree certificate (MBBS, MD, etc.)</p>
+                </div>
+
+                <!-- Experience Certificate -->
+                <div class="form-group document-upload-group">
+                    <label class="document-label">
+                        <i class="fas fa-briefcase"></i>
+                        Experience Certificate
+                        <span class="required-badge">Required</span>
+                    </label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="experienceCertificate" name="experienceCertificate" accept=".pdf" required>
+                        <div class="file-upload-area" data-field="experienceCertificate">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <span class="upload-main">Choose PDF file or drag and drop</span>
+                                <span class="upload-sub">Maximum file size: 5MB</span>
+                            </div>
+                        </div>
+                        <div class="file-info" id="experienceCertificate-info"></div>
+                        <div class="upload-status" id="experienceCertificate-status"></div>
+                    </div>
+                    <p class="document-description">Upload certificates showing your medical experience</p>
+                </div>
+
+                <!-- Specialization Certificate -->
+                <div class="form-group document-upload-group">
+                    <label class="document-label">
+                        <i class="fas fa-award"></i>
+                        Specialization Certificate
+                        <span class="required-badge">Required</span>
+                    </label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="specializationCertificate" name="specializationCertificate" accept=".pdf" required>
+                        <div class="file-upload-area" data-field="specializationCertificate">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <span class="upload-main">Choose PDF file or drag and drop</span>
+                                <span class="upload-sub">Maximum file size: 5MB</span>
+                            </div>
+                        </div>
+                        <div class="file-info" id="specializationCertificate-info"></div>
+                        <div class="upload-status" id="specializationCertificate-status"></div>
+                    </div>
+                    <p class="document-description">Upload your specialization certificate (if applicable)</p>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+                        <i class="fas fa-upload"></i>
+                        Upload Documents
+                    </button>
+                </div>
+
+                <!-- Important Notes -->
+                <div class="upload-notes">
+                    <h4><i class="fas fa-info-circle"></i> Important Notes:</h4>
+                    <ul>
+                        <li>All documents must be in PDF format</li>
+                        <li>Maximum file size: 5MB per document</li>
+                        <li>Documents should be clear and readable</li>
+                        <li>All fields are required for verification</li>
+                        <li>Your account will be activated after admin approval</li>
+                    </ul>
+                </div>
+
+                <div class="auth-links">
+                    <p>Need help? <a href="contact.html">Contact Support</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">D</div>
+                        <div class="logo-text">DocOnClick</div>
+                    </div>
+                    <p>Your trusted healthcare partner. Book appointments with top doctors, manage your medical records, and get the care you deserve.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Doctors</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Healthcare St, Medical City, 12345</p>
+                    <p><i class="fas fa-phone-alt"></i> +123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@doconclick.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 DocOnClick. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/document-upload.js"></script>
+</body>
+</html>

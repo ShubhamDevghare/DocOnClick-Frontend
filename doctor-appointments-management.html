@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Appointments Management</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="css/doctor-appointments-management.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>
+          <a href="doctor-dashboard.html"
+            ><i class="fas fa-calendar-check"></i
+          ></a>
+          Doctor Appointments Management
+        </h1>
+        <p>
+          Manage your appointments efficiently with advanced filtering and
+          patient management tools
+        </p>
+      </div>
+
+      <div class="controls">
+        <div class="controls-row">
+          <div class="form-group">
+            <label for="searchPatient">Search Patient</label>
+            <input
+              type="text"
+              id="searchPatient"
+              placeholder="Enter patient name or phone..."
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="appointmentView">View Options</label>
+            <select id="appointmentView">
+              <option value="all">All Appointments</option>
+              <option value="today">Today's Appointments</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="statusFilterGroup" style="display: none">
+            <label for="statusFilter">Filter by Status</label>
+            <select id="statusFilter">
+              <option value="">All Statuses</option>
+              <option value="CONFIRMED">Confirmed</option>
+              <option value="COMPLETED">Completed</option>
+              <option value="CANCELLED">Cancelled</option>
+              <option value="PENDING">Pending</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="dateFilterGroup" style="display: none">
+            <label for="dateFilter">Filter by Date</label>
+            <input type="date" id="dateFilter" />
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button class="btn btn-primary" onclick="loadAppointments()">
+              <i class="fas fa-search"></i> Search
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="loading" id="loading">
+        <i class="fas fa-spinner"></i>
+        <p>Loading appointments...</p>
+      </div>
+
+      <div id="appointmentsContainer">
+        <div class="appointments-grid" id="appointmentsGrid">
+          <!-- Appointments will be loaded here -->
+        </div>
+      </div>
+
+      <div class="pagination" id="pagination">
+        <!-- Pagination will be loaded here -->
+      </div>
+    </div>
+
+    <!-- Patient Details Modal -->
+    <div id="patientModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-user"></i> Patient Details</h2>
+          <span class="close" onclick="closeModal('patientModal')"
+            >&times;</span
+          >
+        </div>
+        <div id="patientDetails">
+          <!-- Patient details will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointment History Modal -->
+    <div id="historyModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>
+            <i class="fas fa-history"></i> Patient History & Prescriptions
+          </h2>
+          <span class="close" onclick="closeModal('historyModal')"
+            >&times;</span
+          >
+        </div>
+        <div id="appointmentHistory">
+          <!-- History will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Medical Reports Modal -->
+    <div id="reportsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-file-medical"></i> Patient Medical Reports</h2>
+          <span class="close" onclick="closeModal('reportsModal')"
+            >&times;</span
+          >
+        </div>
+        <div id="patientReports">
+          <!-- Reports will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Reschedule Modal -->
+    <div id="rescheduleModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-calendar-alt"></i> Reschedule Appointment</h2>
+          <span class="close" onclick="closeModal('rescheduleModal')"
+            >&times;</span
+          >
+        </div>
+        <div id="rescheduleForm">
+          <div class="form-group">
+            <label for="newDate">New Date</label>
+            <input type="date" id="newDate" required />
+          </div>
+          <div class="form-group">
+            <label for="newTimeSlot">Available Time Slots</label>
+            <select id="newTimeSlot" required>
+              <option value="">Select a time slot</option>
+            </select>
+          </div>
+          <div style="margin-top: 20px">
+            <button class="btn btn-primary" onclick="confirmReschedule()">
+              <i class="fas fa-save"></i> Confirm Reschedule
+            </button>
+            <button
+              class="btn btn-secondary"
+              onclick="closeModal('rescheduleModal')"
+            >
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visit Notes Modal -->
+    <div id="visitNotesModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>
+            <i class="fas fa-notes-medical"></i> Add Visit Notes & Diagnosis
+          </h2>
+          <span class="close" onclick="closeModal('visitNotesModal')"
+            >&times;</span
+          >
+        </div>
+        <div id="visitNotesForm">
+          <div class="form-group">
+            <label for="diagnosis">Diagnosis</label>
+            <textarea
+              id="diagnosis"
+              rows="4"
+              placeholder="Enter diagnosis..."
+              style="
+                width: 100%;
+                padding: 10px;
+                border: 2px solid #e1e5e9;
+                border-radius: 5px;
+              "
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="visitNotes">Visit Notes</label>
+            <textarea
+              id="visitNotes"
+              rows="6"
+              placeholder="Enter visit notes..."
+              style="
+                width: 100%;
+                padding: 10px;
+                border: 2px solid #e1e5e9;
+                border-radius: 5px;
+              "
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Prescription Medicines</label>
+            <div id="medicinesContainer">
+              <div class="medicine-row">
+                <input
+                  type="text"
+                  placeholder="Medicine Name"
+                  class="medicine-name"
+                />
+                <input
+                  type="text"
+                  placeholder="Dosage"
+                  class="medicine-dosage"
+                />
+                <input
+                  type="text"
+                  placeholder="Frequency"
+                  class="medicine-frequency"
+                />
+                <input type="number" placeholder="Days" class="medicine-days" />
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  onclick="addMedicineRow()"
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 20px">
+            <button class="btn btn-success" onclick="saveVisitNotes()">
+              <i class="fas fa-save"></i> Save Notes & Prescription
+            </button>
+            <button
+              class="btn btn-secondary"
+              onclick="closeModal('visitNotesModal')"
+            >
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Medical Reports Modal -->
+    <div id="uploadModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-upload"></i> Upload Medical Reports</h2>
+          <span class="close" onclick="closeModal('uploadModal')">&times;</span>
+        </div>
+        <div id="uploadForm">
+          <div class="form-group">
+            <label for="reportType">Report Type</label>
+            <select
+              id="reportType"
+              required
+              style="
+                width: 100%;
+                padding: 10px;
+                border: 2px solid #e1e5e9;
+                border-radius: 5px;
+              "
+            >
+              <option value="">Select Report Type</option>
+              <option value="LAB_REPORT">Lab Report</option>
+              <option value="X_RAY">X-Ray</option>
+              <option value="MRI_SCAN">MRI Scan</option>
+              <option value="CT_SCAN">CT Scan</option>
+              <option value="ULTRASOUND">Ultrasound</option>
+              <option value="ECG">ECG</option>
+              <option value="BLOOD_TEST">Blood Test</option>
+              <option value="URINE_TEST">Urine Test</option>
+              <option value="PRESCRIPTION">Prescription</option>
+              <option value="DISCHARGE_SUMMARY">Discharge Summary</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+          <div
+            class="file-upload"
+            onclick="document.getElementById('fileInput').click()"
+          >
+            <i
+              class="fas fa-cloud-upload-alt"
+              style="font-size: 2rem; color: #667eea; margin-bottom: 10px"
+            ></i>
+            <p>Click to upload or drag and drop files here</p>
+            <p style="font-size: 12px; color: #6c757d">
+              Supported formats: PDF, JPG, PNG, TXT (Max 10MB)
+            </p>
+          </div>
+          <input
+            type="file"
+            id="fileInput"
+            multiple
+            accept=".pdf,.jpg,.jpeg,.png,.txt"
+            style="display: none"
+          />
+          <div class="form-group" style="margin-top: 15px">
+            <label for="fileDescription">Description</label>
+            <input
+              type="text"
+              id="fileDescription"
+              placeholder="Enter file description..."
+            />
+          </div>
+          <div style="margin-top: 20px">
+            <button class="btn btn-primary" onclick="uploadMedicalReports()">
+              <i class="fas fa-upload"></i> Upload Reports
+            </button>
+            <button
+              class="btn btn-secondary"
+              onclick="closeModal('uploadModal')"
+            >
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prescription View Modal -->
+    <div id="prescriptionModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-prescription"></i> Prescription Details</h2>
+          <span class="close" onclick="closeModal('prescriptionModal')"
+            >&times;</span
+          >
+        </div>
+        <div id="prescriptionDetails">
+          <!-- Prescription details will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <script src="js/doctor-appointments-management.js"></script>
+  </body>
+</html>

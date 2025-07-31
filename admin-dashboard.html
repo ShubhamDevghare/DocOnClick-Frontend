@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocOnClick Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-user-shield"></i> Admin Panel</h2>
+                <div class="admin-info">
+                    <span id="adminName">Admin User</span>
+                    <span id="adminRole" class="role-badge">SUPER_ADMIN</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="admin-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="admin-doctor-management.html"><i class="fas fa-user-md"></i> Doctor Management</a></li>
+                <li><a href="admin-user-management.html"><i class="fas fa-users"></i> User Management</a></li>
+                <li><a href="admin-patient-management.html"><i class="fas fa-user-injured"></i> Patient Management</a></li>
+                <li><a href="admin-appointments-management.html"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                <li><a href="admin-admin-management.html"><i class="fas fa-user-shield"></i> Admin Management</a></li>
+                <li><a href="admin-payments-management.html"><i class="fas fa-credit-card"></i> Payments</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Dashboard Overview</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pendingDoctors">0</h3>
+                        <p>Pending Doctors</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon verified">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="verifiedDoctors">0</h3>
+                        <p>Verified Doctors</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon users">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalUsers">0</h3>
+                        <p>Total Users</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon patients">
+                        <i class="fas fa-user-injured"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalPatients">0</h3>
+                        <p>Total Patients</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="content-section">
+                <h2>Recent Doctor Verification Requests</h2>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Doctor Name</th>
+                                <th>Specialization</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Submitted</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentVerifications">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/admin-dashboard.js"></script>
+</body>
+</html>

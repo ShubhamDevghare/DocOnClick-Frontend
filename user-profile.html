@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/user-profile.css" />
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="top-header">
+        <div class="container">
+          <div class="contact-info">
+            <a href="mailto:info@doconclick.com"
+              ><i class="fas fa-envelope"></i> info@DocOnClick.com</a
+            >
+            <a href="tel:+1234567890"
+              ><i class="fas fa-phone-alt"></i> +123 456 7890</a
+            >
+          </div>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+       <div class="main-header">
+        <div class="container">
+          <a href="home.html" class="logo">
+            <div class="logo-icon">D</div>
+            <div class="logo-text">DocOnClick</div>
+          </a>
+          <nav>
+            <ul>
+              <li><a href="home.html">Home</a></li>
+              <li>
+                <a href="user-book-appointment.html"
+                  >Find Doctor & Schedule Appointment</a
+                >
+              </li>
+              <li><a href="user-appointments.html">My Appointments</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+          <div class="user-menu">
+            <div class="user-profile" id="user-profile-toggle">
+              <img
+                src="/placeholder.svg"
+                alt="Profile"
+                id="header-profile-image"
+              />
+              <span id="user-name">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu" id="user-dropdown">
+              <a href="user-dashboard.html"
+                ><i class="fas fa-columns"></i> Dashboard</a
+              >
+              <a href="user-profile.html"
+                ><i class="fas fa-user"></i> My Profile</a
+              >
+              <a href="user-appointments.html"
+                ><i class="fas fa-calendar-check"></i> My Appointments</a
+              >
+              <a href="user-settings.html"
+                ><i class="fas fa-cog"></i> Settings</a
+              >
+              <a href="#" id="logout-btn"
+                ><i class="fas fa-sign-out-alt"></i> Logout</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Profile Content -->
+    <div class="dashboard-container">
+      <div class="container">
+        <div class="dashboard-header">
+          <h1>My Profile</h1>
+          <!-- <p>Manage your personal information</p> -->
+        </div>
+
+        <div class="profile-content">
+          <div class="profile-sidebar">
+            <div class="profile-image-container">
+              <img src="/placeholder.svg" alt="Profile" id="profile-image" />
+              <div class="profile-image-overlay">
+                <label for="profile-image-upload" class="image-upload-btn">
+                  <i class="fas fa-camera"></i>
+                </label>
+                <input
+                  type="file"
+                  id="profile-image-upload"
+                  accept="image/*"
+                  style="display: none"
+                />
+              </div>
+            </div>
+            <h2 id="sidebar-user-name">User Name</h2>
+            <p id="sidebar-user-email">user@example.com</p>
+            <div class="profile-menu">
+              <a href="user-dashboard.html" class="profile-menu-item">
+                <i class="fas fa-columns"></i> Dashboard
+              </a>
+              <a href="user-profile.html" class="profile-menu-item active">
+                <i class="fas fa-user"></i> My Profile
+              </a>
+              <a href="user-appointments.html" class="profile-menu-item">
+                <i class="fas fa-calendar-check"></i> My Appointments
+              </a>
+              <a href="user-settings.html" class="profile-menu-item">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+            </div>
+          </div>
+
+          <div class="profile-details">
+            <div class="profile-section">
+              <div class="section-header">
+                <h3>Personal Information</h3>
+                <!-- <button id="edit-profile-btn" class="btn btn-sm btn-outline">
+                  <i class="fas fa-edit"></i> Edit
+                </button> -->
+              </div>
+
+              <div id="profile-view" class="profile-info">
+                <div class="info-row">
+                  <div class="info-label">Full Name</div>
+                  <div class="info-value" id="view-fullName">-</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">Email</div>
+                  <div class="info-value" id="view-email">-</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">Phone</div>
+                  <div class="info-value" id="view-phone">-</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">Gender</div>
+                  <div class="info-value" id="view-gender">-</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">Date of Birth</div>
+                  <div class="info-value" id="view-dateOfBirth">-</div>
+                </div>
+                <div class="info-row">
+                  <div class="info-label">Address</div>
+                  <div class="info-value" id="view-address">-</div>
+                </div>
+              </div>
+
+              <form
+                id="profile-edit"
+                class="profile-form"
+                style="display: none"
+              >
+                <div id="status-message" class="status-message"></div>
+
+                <div class="form-group">
+                  <label for="fullName">Full Name</label>
+                  <input type="text" id="fullName" name="fullName" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    pattern="[0-9]{10}"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="gender">Gender</label>
+                  <select id="gender" name="gender" required>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="dateOfBirth">Date of Birth</label>
+                  <input
+                    type="date"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <textarea id="address" name="address" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button
+                    type="button"
+                    id="cancel-edit-btn"
+                    class="btn btn-outline"
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- <div class="profile-section">
+              <div class="section-header">
+                <h3>Change Password</h3>
+              </div>
+
+              <form id="password-form" class="profile-form">
+                <div id="password-status-message" class="status-message"></div> -->
+
+                <!-- <div class="form-group">
+                  <label for="currentPassword">Current Password</label>
+                  <input
+                    type="password"
+                    id="currentPassword"
+                    name="currentPassword"
+                    required
+                  />
+                </div> -->
+<!-- 
+                <div class="form-group">
+                  <label for="newPassword">New Password</label>
+                  <input
+                    type="password"
+                    id="newPassword"
+                    name="newPassword"
+                    minlength="8"
+                    required
+                  />
+                </div> -->
+
+                <!-- <div class="form-group">
+                  <label for="confirmPassword">Confirm New Password</label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    minlength="8"
+                    required
+                  />
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">
+                    Update Password
+                  </button> -->
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <div class="footer-logo">
+              <div class="logo-icon">D</div>
+              <div class="logo-text">DocOnClick</div>
+            </div>
+            <p>
+              Your trusted healthcare partner. Book appointments with top
+              doctors, manage your medical records, and get the care you
+              deserve.
+            </p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="home.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="doctors.html">Doctors</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact" id ="contact">
+            <h3>Contact Us</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 123 Healthcare St, Medical
+              City, 12345
+            </p>
+            <p><i class="fas fa-phone-alt"></i> +123 456 7890</p>
+            <p><i class="fas fa-envelope"></i> info@doconclick.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 DocOnClick. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/user-profile.js"></script>
+  </body>
+</html>

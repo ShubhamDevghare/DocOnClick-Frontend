@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Management - DocOnClick Admin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-user-shield"></i> Admin Panel</h2>
+                <div class="admin-info">
+                    <span id="adminName">Admin User</span>
+                    <span id="adminRole" class="role-badge">SUPER_ADMIN</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="admin-doctor-management.html" class="active"><i class="fas fa-user-md"></i> Doctor Management</a></li>
+                <li><a href="admin-user-management.html"><i class="fas fa-users"></i> User Management</a></li>
+                <li><a href="admin-patient-management.html"><i class="fas fa-user-injured"></i> Patient Management</a></li>
+                <li><a href="admin-appointments-management.html"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                <li><a href="admin-admin-management.html"><i class="fas fa-user-shield"></i> Admin Management</a></li>
+                <li><a href="admin-payments-management.html"><i class="fas fa-credit-card"></i> Payments</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Doctor Management</h1>
+                <div class="header-actions">
+                    <button class="btn btn-success" onclick="openCreateDoctorModal()">
+                        <i class="fas fa-user-plus"></i> Create Doctor
+                    </button>
+                    <button class="btn btn-secondary" onclick="refreshDoctors()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </header>
+
+            <!-- Search and Filter Section -->
+            <div class="search-filter-section">
+                <div class="search-group">
+                    <div class="search-field">
+                        <label>Search by Name:</label>
+                        <input type="text" id="searchByName" placeholder="Enter doctor name..." onkeyup="searchDoctors()">
+                    </div>
+                    
+                    <div class="search-field">
+                        <label>Search by Doctor ID:</label>
+                        <input type="text" id="searchByDoctorId" placeholder="Enter doctor ID..." onkeyup="searchDoctors()">
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-field">
+                        <label>Filter by Status:</label>
+                        <select id="filterByStatus" onchange="filterDoctors()">
+                            <option value="">All Status</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="VERIFIED">Verified</option>
+                            <option value="REJECTED">Rejected</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-field">
+                        <label>Filter by Speciality:</label>
+                        <select id="filterBySpeciality" onchange="filterDoctors()">
+                            <option value="">All Specialities</option>
+                            <!-- Dynamic options -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctors Table -->
+            <div class="content-section">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Doctor ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Specialization</th>
+                                <th>Experience</th>
+                                <th>Patients</th>
+                                <th>Status</th>
+                                <th>Documents</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="doctorsTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <!-- Dynamic pagination -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Doctor Details Modal -->
+    <div id="doctorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Doctor Details</h2>
+                <span class="close" onclick="closeDoctorModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="doctorModalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Viewer Modal -->
+    <div id="documentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Document Viewer</h2>
+                <span class="close" onclick="closeDocumentModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="documentModalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Status Update Modal -->
+    <div id="verificationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Update Verification Status</h2>
+                <span class="close" onclick="closeVerificationModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="verificationForm">
+                    <input type="hidden" id="doctorIdForVerification">
+                    <div class="form-group">
+                        <label>Verification Status:</label>
+                        <select id="verificationStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="VERIFIED">Verified</option>
+                            <option value="REJECTED">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="rejectionReasonGroup" style="display: none;">
+                        <label>Rejection Reason:</label>
+                        <textarea id="rejectionReason" placeholder="Enter reason for rejection..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeVerificationModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Doctor Modal -->
+    <div id="createDoctorModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Create Doctor with Verification Documents</h2>
+                <span class="close" onclick="closeCreateDoctorModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="createDoctorForm" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="doctorFullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="doctorEmail" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone *</label>
+                            <input type="tel" id="doctorPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Specialization *</label>
+                            <input type="text" id="doctorSpecialization" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Experience Years *</label>
+                            <input type="number" id="doctorExperience" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Medical License Number *</label>
+                            <input type="text" id="doctorLicense" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fees *</label>
+                            <input type="number" id="doctorFees" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password *</label>
+                            <input type="password" id="doctorPassword" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Address *</label>
+                        <textarea id="doctorAddress" required></textarea>
+                    </div>
+                    
+                    <h3>Verification Documents</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Government ID Proof *</label>
+                            <input type="file" id="governmentIdProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Medical Registration Certificate *</label>
+                            <input type="file" id="medicalRegistrationCertificate" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Educational Certificate *</label>
+                            <input type="file" id="educationalCertificate" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Experience Certificate</label>
+                            <input type="file" id="experienceCertificate" accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Specialization Certificate</label>
+                        <input type="file" id="specializationCertificate" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeCreateDoctorModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Doctor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Submodules Modal -->
+    <div id="doctorSubmodulesModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="submoduleTitle">Doctor Management</h2>
+                <span class="close" onclick="closeDoctorSubmodulesModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="submodule-tabs">
+                    <button class="tab-btn active" onclick="showSubmodule('schedules')">Weekly Schedules</button>
+                    <button class="tab-btn" onclick="showSubmodule('slots')">Appointment Slots</button>
+                    <button class="tab-btn" onclick="showSubmodule('holidays')">Holidays</button>
+                    <button class="tab-btn" onclick="showSubmodule('reviews')">Reviews</button>
+                </div>
+                
+                <div id="submoduleContent">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/admin-doctor-management.js"></script>
+</body>
+</html>

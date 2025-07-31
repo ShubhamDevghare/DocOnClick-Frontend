@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - DocOnClick</title>
+    <link rel="stylesheet" href="css/doctor-setting.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>Settings</h1>
+                <div class="user-info">
+                    <span id="doctorName">Dr. Loading...</span>
+                    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li><a href="#profile" class="nav-link active" data-section="profile">Profile</a></li>
+                <li><a href="#password" class="nav-link" data-section="password">Change Password</a></li>
+                <li><a href="#banking" class="nav-link" data-section="banking">Banking Details</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Profile Section -->
+            <section id="profile" class="content-section active">
+                <div class="section-header">
+                    <h2>Profile Information</h2>
+                    <button id="editProfileBtn" class="btn btn-primary">Edit Profile</button>
+                </div>
+                
+                <div class="profile-container">
+                    <div class="profile-image-section">
+                        <div class="profile-image-wrapper">
+                            <img id="profileImage" src="/placeholder.svg?height=150&width=150" alt="Profile Image" class="profile-image">
+                            <div class="image-overlay" id="imageOverlay" style="display: none;">
+                                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                                <button id="changeImageBtn" class="btn btn-small">Change Photo</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-group">
+                            <label>Full Name</label>
+                            <div class="detail-value">
+                                <span id="fullNameDisplay">Loading...</span>
+                                <input type="text" id="fullNameInput" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label>Email</label>
+                            <div class="detail-value">
+                                <span id="emailDisplay">Loading...</span>
+                                <input type="email" id="emailInput" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label>Phone Number</label>
+                            <div class="detail-value">
+                                <span id="phoneDisplay">Loading...</span>
+                                <input type="tel" id="phoneInput" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label>Address</label>
+                            <div class="detail-value">
+                                <span id="addressDisplay">Loading...</span>
+                                <textarea id="addressInput" style="display: none;"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label>Gender</label>
+                            <div class="detail-value">
+                                <span id="genderDisplay">Loading...</span>
+                                <select id="genderInput" style="display: none;">
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="detail-group readonly">
+                            <label>Medical License Number</label>
+                            <div class="detail-value">
+                                <span id="licenseDisplay">Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-group readonly">
+                            <label>Specialization</label>
+                            <div class="detail-value">
+                                <span id="specializationDisplay">Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-group readonly">
+                            <label>Years of Experience</label>
+                            <div class="detail-value">
+                                <span id="experienceDisplay">Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons" id="profileActions" style="display: none;">
+                            <button id="saveProfileBtn" class="btn btn-success">Save Changes</button>
+                            <button id="cancelProfileBtn" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Password Change Section -->
+            <section id="password" class="content-section">
+                <div class="section-header">
+                    <h2>Change Password</h2>
+                </div>
+                
+                <div class="password-form">
+                    <form id="passwordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" required minlength="6">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Banking Details Section -->
+            <section id="banking" class="content-section">
+                <div class="section-header">
+                    <h2>Banking Details</h2>
+                    <button id="addBankingBtn" class="btn btn-primary" style="display: none;">Add Banking Details</button>
+                    <button id="editBankingBtn" class="btn btn-primary" style="display: none;">Edit Details</button>
+                </div>
+                
+                <div class="banking-container">
+                    <div id="bankingDisplay" class="banking-details">
+                        <div class="detail-group">
+                            <label>Bank Name</label>
+                            <div class="detail-value">
+                                <span id="bankNameDisplay">Not provided</span>
+                                <input type="text" id="bankNameInput" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label>Account Number</label>
+                            <div class="detail-value">
+                                <span id="accountNumberDisplay">Not provided</span>
+                                <input type="text" id="accountNumberInput" style="display: none;" pattern="[0-9]{9,18}">
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label>CIF Number</label>
+                            <div class="detail-value">
+                                <span id="cifNumberDisplay">Not provided</span>
+                                <input type="text" id="cifNumberInput" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label>UPI ID</label>
+                            <div class="detail-value">
+                                <span id="upiIdDisplay">Not provided</span>
+                                <input type="text" id="upiIdInput" style="display: none;" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+">
+                            </div>
+                        </div>
+
+                        <div class="action-buttons" id="bankingActions" style="display: none;">
+                            <button id="saveBankingBtn" class="btn btn-success">Save Changes</button>
+                            <button id="cancelBankingBtn" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
+
+                    <div id="noBankingDetails" class="no-data" style="display: none;">
+                        <p>No banking details found. Click "Add Banking Details" to add your information.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <script src="js/doctor-setting.js"></script>
+</body>
+</html>
